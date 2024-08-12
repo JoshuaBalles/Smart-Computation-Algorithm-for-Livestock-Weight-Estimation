@@ -1,0 +1,52 @@
+<!-- templates/estimate.html (do not change or remove this comment) -->
+
+{% extends "base.html" %} {% block title %}Estimate{% endblock %} {% block content %}
+<div
+	style="
+		margin-top: 2rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 75vh;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		background-color: #fffce8;
+		border-color: #8b4513;
+		padding: 0.5rem 1rem;
+		border-radius: 0.5rem;
+		box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.1), 0rem 0.5rem 1rem rgba(0, 0, 0, 0.2);
+		padding-top: 3rem;
+		padding-bottom: 3rem;
+	">
+	<img
+		src="{{ url_for('get_cropped_image', filename=filename) }}"
+		alt="{{ basename }}"
+		style="
+			max-height: 50vh;
+			width: auto;
+			object-fit: contain;
+			border: 0.25rem solid #8b4513;
+			border-radius: 0.5rem;
+			box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.1), 0rem 0.5rem 1rem rgba(0, 0, 0, 0.2);
+		" />
+	<p style="margin-top: 1rem; font-size: 2rem">{{ basename }}</p>
+	<p style="font-size: 1.25rem"><strong>Estimated Weight: {{ "%.4f" % estimated_weight }} kg</strong></p>
+	<form action="{{ url_for('delete_image', basename=basename) }}" method="POST" style="margin-top: 1rem">
+		<button
+			type="submit"
+			class="btn btn-primary"
+			style="
+				font-weight: bold;
+				font-size: 1.5rem;
+				background-color: #8b4513;
+				border-color: #8b4513;
+				padding: 0.5rem 1rem;
+				border-radius: 0.5rem;
+				box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.1), 0rem 0.5rem 1rem rgba(0, 0, 0, 0.2);
+			">
+			<i class="fa-solid fa-trash"></i> Delete
+		</button>
+	</form>
+</div>
+{% endblock %}

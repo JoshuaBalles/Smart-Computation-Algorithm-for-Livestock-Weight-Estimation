@@ -1,0 +1,122 @@
+<!-- templates/manage.html (do not change or remove this comment) -->
+
+{% extends "base.html" %} {% block title %}Manage{% endblock %} {% block content %}
+<div class="container-fluid">
+	<div class="row">
+		<!-- Chicken Section -->
+		<div class="col-md-6">
+			<h2 style="text-align: center; margin: 1rem; font-weight: bold; text-shadow: 0.0625rem 0.0625rem 0.125rem #000000">Chickens Analysis</h2>
+			<div
+				id="chickenPieChart"
+				style="
+					width: 100%;
+					height: 20rem;
+					border: 0.125rem solid #ffa07a;
+					box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.1), 0rem 0.5rem 1rem rgba(0, 0, 0, 0.2);
+				"></div>
+			{% if chickens %}
+			<table
+				class="table table-bordered table-hover mt-4"
+				style="
+					border: 0.125rem solid #ffa07a;
+					border-radius: 0.5rem;
+					box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.1), 0rem 0.5rem 1rem rgba(0, 0, 0, 0.2);
+				">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Estimated Weight (kg)</th>
+						<th>Size</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for chicken in chickens %}
+					<tr>
+						<td><a href="#" data-bs-toggle="modal" data-bs-target="#estimateModal" data-bs-name="{{ chicken.name }}">{{ chicken.name }}</a></td>
+						<td>{{ chicken.weight }}</td>
+						<td>{{ chicken.size }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% else %}
+			<p>No chickens available.</p>
+			{% endif %}
+		</div>
+
+		<!-- Pig Section -->
+		<div class="col-md-6">
+			<h2 style="text-align: center; margin: 1rem; font-weight: bold; text-shadow: 0.0625rem 0.0625rem 0.125rem #000000">Pigs Analysis</h2>
+			<div
+				id="pigPieChart"
+				style="
+					width: 100%;
+					height: 20rem;
+					border: 0.125rem solid #ffa07a;
+					box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.1), 0rem 0.5rem 1rem rgba(0, 0, 0, 0.2);
+				"></div>
+			{% if pigs %}
+			<table
+				class="table table-bordered table-hover mt-4"
+				style="
+					border: 0.125rem solid #ffa07a;
+					border-radius: 0.5rem;
+					box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.1), 0rem 0.5rem 1rem rgba(0, 0, 0, 0.2);
+				">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Estimated Weight (kg)</th>
+						<th>Size</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for pig in pigs %}
+					<tr>
+						<td><a href="#" data-bs-toggle="modal" data-bs-target="#estimateModal" data-bs-name="{{ pig.name }}">{{ pig.name }}</a></td>
+						<td>{{ pig.weight }}</td>
+						<td>{{ pig.size }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% else %}
+			<p>No pigs available.</p>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="estimateModal" tabindex="-1" aria-labelledby="estimateModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="estimateModalLabel">Livestock Details</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body d-flex align-items-center justify-content-center" style="height: 75vh; overflow: hidden">
+				<iframe id="estimateModalIframe" src="" style="width: 100%; height: 100%; border: none"></iframe>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+	    const chickenGraph = {{ chicken_graph | safe }};
+	    const pigGraph = {{ pig_graph | safe }};
+
+	    Plotly.newPlot('chickenPieChart', chickenGraph.data, chickenGraph.layout);
+	    Plotly.newPlot('pigPieChart', pigGraph.data, pigGraph.layout);
+
+	    const estimateModal = document.getElementById('estimateModal');
+	    estimateModal.addEventListener('show.bs.modal', function (event) {
+	        const button = event.relatedTarget;
+	        const name = button.getAttribute('data-bs-name');
+	        const iframe = document.getElementById('estimateModalIframe');
+	        iframe.src = `/result/estimate_modal/${encodeURIComponent(name)}`;
+	    });
+	});
+</script>
+{% endblock %}

@@ -1,0 +1,41 @@
+<!-- templates/home.html (do not change or remove this comment) -->
+
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content %}
+<div class="container mt-5">
+	<div class="row align-items-center" style="height: 80vh">
+		<div class="col-md-6 text-center d-flex flex-column align-items-center">
+			<img src="{{ url_for('static', filename='scale-logo.png') }}" alt="S.C.A.L.E. Logo" style="width: 25vw; height: auto" />
+			<h1 style="font-weight: bold; text-shadow: 0.0625rem 0.0625rem 0.125rem #000000">S.C.A.L.E.</h1>
+			<h3 style="font-style: italic; text-decoration: underline">Empowering Farms, One Algorithm at a Time!</h3>
+		</div>
+		<div class="col-md-6 d-flex justify-content-center">
+			<div class="card" style="padding: 1rem; box-shadow: 0.125rem 0.125rem 0.25rem #000000">
+				<div class="card-body">
+					<h5 class="card-title" style="font-weight: bold; font-size: 1.5rem">
+						Welcome to Smart Computation Algorithm for Livestock Estimation (S.C.A.L.E.)! Here's how to get started:
+					</h5>
+					<ol>
+						<li style="font-size: 1rem"><strong>Home Page:</strong> Start at the Home page to find different sections of the app.</li>
+						<li style="font-size: 1rem">
+							<strong>Capture Page:</strong> Go to the Capture page to see a live feed from the camera. Capture an image of your livestock. The
+							app will detect the livestock and save their pictures.
+						</li>
+						<li style="font-size: 1rem">
+							<strong>Results Page:</strong> Check the Results page to see the detected livestock. Click on any image to see its estimated weight.
+							The app saves this information for you.
+						</li>
+						<li style="font-size: 1rem">
+							<strong>Estimate Page:</strong> On the Estimate page, see the estimated weight of your livestock. You can delete any image if you
+							want.
+						</li>
+						<li style="font-size: 1rem">
+							<strong>Manage Page:</strong> Visit the Manage page to see a pie chart and tables with your livestock's information. Click on a
+							livestock's name to see more details. You can close the details to go back to the Manage page or explore other parts of the app.
+						</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

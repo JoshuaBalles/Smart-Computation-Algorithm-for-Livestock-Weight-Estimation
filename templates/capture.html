@@ -1,0 +1,42 @@
+<!-- templates/capture.html (do not change or remove this comment) -->
+
+{% extends "base.html" %} {% block title %}Capture{% endblock %} {% block content %}
+<h1 style="text-align: center; margin: 1rem; font-weight: bold; text-shadow: 0.0625rem 0.0625rem 0.125rem #000000">Capture Livestock(s)</h1>
+<div
+	style="
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		gap: 1rem;
+		background-color: #fffce8;
+		border-color: #8b4513;
+		padding: 0.5rem 1rem;
+		border-radius: 0.5rem;
+		box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.1), 0rem 0.5rem 1rem rgba(0, 0, 0, 0.2);
+		padding-top: 3rem;
+		padding-bottom: 3rem;
+	">
+	<img
+		src="http://{{ ip_address }}:8000/stream.mjpg"
+		alt="Camera Stream"
+		style="width: auto; height: 50vh; margin: 0; border: 0.25rem solid #8b4513; border-radius: 0.5rem; box-shadow: 0rem 0.5rem 1rem rgba(0, 0, 0, 0.2)" />
+	<form action="{{ url_for('capture') }}" method="post" style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 1rem; margin: 0">
+		<button
+			type="submit"
+			class="btn btn-primary"
+			style="
+				font-weight: bold;
+				font-size: 1.5rem;
+				background-color: #8b4513;
+				border-color: #8b4513;
+				padding: 0.5rem 1rem;
+				border-radius: 0.5rem;
+				box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.1), 0rem 0.5rem 1rem rgba(0, 0, 0, 0.2);
+			">
+			<i class="fa-solid fa-camera"></i> Capture
+		</button>
+	</form>
+</div>
+{% endblock %}

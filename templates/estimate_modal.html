@@ -1,0 +1,7 @@
+<!-- templates/estimate_modal.html (do not change or remove this comment) -->
+
+<div class="container d-flex flex-column align-items-center justify-content-center" style="height: 100%">
+	<h3>{{ basename }}</h3>
+	<p>Estimated Weight: {{ estimated_weight }} kg</p>
+	<img src="{{ url_for('get_cropped_image', filename=filename) }}" alt="{{ basename }}" class="img-fluid" style="max-height: 50vh; width: auto" />
+</div>

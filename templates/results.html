@@ -1,0 +1,79 @@
+<!-- templates/results.html -->
+
+{% extends "base.html" %} {% block title %}Results{% endblock %} {% block content %}
+<h1 style="text-align: center; margin: 1rem; font-weight: bold; text-shadow: 0.0625rem 0.0625rem 0.125rem #000000">Captured Livestock(s) & Results</h1>
+
+<!-- Updated flash message section with close button -->
+{% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+<div
+	id="flash-message"
+	class="alert alert-{{ category }}"
+	style="text-align: center; margin-bottom: 1rem; position: relative; padding-right: 35px; font-size: 3rem">
+	{{ message }}
+	<button
+		type="button"
+		class="close"
+		style="
+			position: absolute;
+			top: 0;
+			right: 10px;
+			padding: 0.75rem 1.25rem;
+			color: inherit;
+			font-size: 1.25rem;
+			font-weight: 700;
+			line-height: 1;
+			text-shadow: 0 1px 0 #fff;
+			opacity: 0.5;
+			background: transparent;
+			border: 0;
+		"
+		onclick="this.parentElement.style.display='none';">
+		&times;
+	</button>
+</div>
+{% endfor %} {% endif %} {% endwith %}
+
+<div style="width: 100%; display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center">
+	{% for image in images %}
+	<div
+		style="
+			background-color: #ebebeb;
+			padding: 2rem;
+			border: 0.125rem solid #8b4513;
+			border-radius: 0.5rem;
+			text-align: center;
+			width: 19%;
+			height: 16rem;
+			box-sizing: border-box;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			box-shadow: 0rem 1rem 1rem rgba(0, 0, 0, 0.1), 0rem 0.5rem 1rem rgba(0, 0, 0, 0.2);
+		">
+		<a href="{{ url_for('estimate', basename=image.basename) }}" style="display: block; width: 100%; height: 100%">
+			<img
+				src="{{ url_for('get_cropped_image', filename=image.filename) }}"
+				alt="{{ image.basename }}"
+				style="width: 100%; height: auto; max-height: calc(100% - 2rem); border-radius: 0.5rem; object-fit: contain" />
+		</a>
+		<p style="margin: 0.5rem 0 0 0; font-size: 1rem">{{ image.basename }}</p>
+	</div>
+	{% endfor %}
+</div>
+
+<!-- Add this script at the end of your content block -->
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var flashMessage = document.getElementById("flash-message");
+		if (flashMessage) {
+			var closeButton = flashMessage.querySelector(".close");
+			if (closeButton) {
+				closeButton.addEventListener("click", function () {
+					flashMessage.style.display = "none";
+				});
+			}
+		}
+	});
+</script>
+{% endblock %}
